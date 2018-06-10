@@ -14,11 +14,23 @@ var io = socketIO(server);
 io.on('connection', (socket) => {
     console.log('New user connected');
 
+    socket.emit('createEmail', {
+        from: 'Tera Baap',
+        to: 'hat chutiye',
+        timeStamp: 45799
+    });
+
     socket.on('disconnect', () => {
         console.log('server disconnected');
-    })
+    });
+
+    socket.on('something', (some) => {
+        console.log(some);
+    });
 });
 
 app.use(express.static(publicPath));
 
-server.listen(port);
+server.listen(port, () => {
+    console.log('Starting server');
+});
