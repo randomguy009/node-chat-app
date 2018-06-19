@@ -18,13 +18,32 @@ io.on('connection', (socket) => {
         console.log('server disconnected');
     });
 
+    socket.emit('newMessage', {
+            from: 'Admin',
+            text: 'Welcome to Chat App',
+            createdAt: new Date().getTime()
+    });
+
+    socket.broadcast.emit('newMessage', {
+        from: 'Admin',
+        text: 'New User Joined',
+        createdAt: new Date().getTime() 
+    });
+
     socket.on('createMessage', (message) => {
         console.log(message);
+
         io.emit('newMessage', {
             from: message.to,
             text: message.text,
             createdAt: new Date().getTime()
         });
+
+        // socket.broadcast.emit('newMessage', {
+        //     from: message.from,
+        //     text: message.texr,
+        //     createdAt: new Date().getTime()
+        // });
     });
 });
 
