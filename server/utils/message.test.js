@@ -4,12 +4,11 @@ var {generateMessage} = require('./message');
 
 describe('generateMessage', () => {
     it('should generate correct message object', () => {
-        var message = {
-            from: 'someone',
-            text: 'something',
-            createdAt: new Date().getTime()
-        };
+            var from = 'someone';
+            var text = 'something';
+            var message = generateMessage(from, text);
 
-        expect(message.from)
-    })
-})
+        expect(message).toMatchObject({from, text});
+        expect(typeof message.createdAt).toBe('number');
+    });
+});
